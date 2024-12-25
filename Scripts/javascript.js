@@ -13,28 +13,28 @@ var interestChart;
 
 window.addEventListener("DOMContentLoaded", function () {
     interestRateChanged();
-    drawChart();
+    drawCharts();
 });
 
 function totalLoanAmountChanged() {
     totalAmount = totalAmountInput.value;
-    drawChart();
+    drawCharts();
 }
 
 function interestRateChanged() {
     interestRate = (interestRateInput.value * 0.01) / 4;
     console.log(interestRate);
-    drawChart();
+    drawCharts();
 }
 
 function loanYearsChanged() {
     loanYears = loanYearsInput.value;
-    drawChart();
+    drawCharts();
 }
 
 function monthlyPaymentChanged() {
     monthlyPayment = monthlyPaymentInput.value;
-    drawChart();
+    drawCharts();
 }
 
 function findLabels(datasets) {
@@ -116,36 +116,48 @@ function calculateRentData() {
     return output;
 }
 
-
-function drawChart() {
+function drawLoanChart(datasets, labels) {
     if (loanChart) {
         loanChart.destroy();
     }
     const loanId = document.getElementById('loan-chart');
+    const options = {
+        maintainAspectRatio: false,
+    }
+
+    loanChart = new Chart(loanId, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets,
+        },
+        options: options
+    });
+}
+
+function drawCharts() {
+    const datasets = calculateRentData();
+    const interestData = datasets[0];
+    const interestLabels = findLabels(interestData);
+    const loanData = datasets[1]
+    drawInterestChart(interestData, interestLabels);
+    drawLoanChart(loanData, interestLabels);
+}
+
+function drawInterestChart(datasets, labels) {
+    if (interestChart) {
+        interestChart.destroy();
+    }
     const interestId = document.getElementById('interest-chart');
     const options = {
         maintainAspectRatio: false,
     }
 
-    const datasets = calculateRentData();
-    const loanDatasets = datasets[0];
-    const interestDatasets = datasets[1];
-    const labels = findLabels(loanDatasets);
-    console.log(datasets)
-    loanChart = new Chart(loanId, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: loanDatasets,
-        },
-        options: options
-    });
-
     interestChart = new Chart(interestId, {
         type: 'line',
         data: {
             labels: labels,
-            datasets: interestDatasets,
+            datasets: datasets,
         },
         options: options
     });
