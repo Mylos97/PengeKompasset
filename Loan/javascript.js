@@ -2,7 +2,6 @@ const totalAmountInput = document.querySelector("#total-loan");
 const interestRateInput = document.querySelector("#total-interest");
 const loanYearsInput = document.querySelector("#loan-years");
 const monthlyPaymentInput = document.querySelector("#monthly-payment");
-
 var totalAmount = totalAmountInput.value;
 var interestRate;
 var loanYears = loanYearsInput.value;
@@ -10,11 +9,6 @@ var monthlyPayment = monthlyPaymentInput.value;
 var interestPayment = 3;
 var loanChart;
 var interestChart;
-
-window.addEventListener("DOMContentLoaded", function () {
-    interestRateChanged();
-    drawCharts();
-});
 
 function totalLoanAmountChanged() {
     totalAmount = totalAmountInput.value;
@@ -171,3 +165,7 @@ function drawInterestChart(datasets, labels) {
         options: options
     });
 }
+
+
+interestRateChanged();
+drawCharts();

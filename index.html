@@ -1,63 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Udregn Rente på dit lån</title>
     <script src="Scripts/chart.js"></script>
-    <link rel="stylesheet" href="/Misc/styles.css"/>
+    <script src="Scripts/header.js"></script>
+    <link rel="stylesheet" href="/Misc/styles.css" />
 </head>
 
 <body>
-    <div class="header d-flex p-s">
-        <img src="Misc/settings.svg" id="settings-icon" class="color-text-color cursor-pointer" />
+    <nav-bar> </nav-bar>
+    <div id="content" class="full-w-h">
     </div>
-    <div class="d-flex d-align-items d-direction-column d-gap-xl p-m d-flex-1">
-        <h1>
-            Udregn løbetiden på dit lån
-        </h1>
-        <div class="d-flex d-flex-1 chart-container" style="width: 20%;">
-            <canvas id="loan-chart"></canvas>
-        </div>
-        <div class="d-flex d-flex-1 chart-container">
-            <canvas id="interest-chart"></canvas>
-        </div>
-    </div>
-    <div id="popup" class="popup cursor-pointer">
-        <div id="popup-content" class="popup-content">
-            <div class="d-flex d-gap-m d-flex-wrap d-justify-content">
-                <div class="form-group">
-                    <label for="total-loan">
-                        Antal af penge lånt
-                    </label>
-                    <input type="number" id="total-loan" name="total-loan" min="0" value="1000000"
-                        onchange="totalLoanAmountChanged()" />
-                </div>
-                <div class="form-group">
-                    <label for="total-interest">
-                        Renten i årlig procent
-                    </label>
-                    <input type="number" id="total-interest" name="total-interest" min="0" max="100" value="5.5"
-                        onchange="interestRateChanged()" />
-                </div>
-                <div class="form-group">
-                    <label for="loan-years">
-                        År tilbage af lånet
-                    </label>
-                    <input type="number" id="loan-years" name="loan-years" min="0" max="5 0" value="30"
-                        onchange="loanYearsChanged()" />
-                </div>
-                <div class="form-group">
-                    <label for="monthly-payment">
-                        Betaling hver måned
-                    </label>
-                    <input type="number" id="monthly-payment" name="monthly-payment" min="0" max="5 0" value="8000"
-                        onchange="monthlyPaymentChanged()" />
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-<script src="Scripts/javascript.js"></script>
-<script src="Scripts/popup.js"></script>
 </html>

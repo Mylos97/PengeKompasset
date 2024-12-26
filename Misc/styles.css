@@ -21,6 +21,11 @@
     color: var(--text-color);
 }
 
+.full-w-h {
+    width: 100%;
+    height: 100%;
+}
+
 .color-text-color {
     color: var(--text-color);
 }
@@ -103,7 +108,6 @@
 
 .header {
     border-bottom: 1px solid var(--grey-color);
-    max-height: var(--size-xl);
 }
 
 .popup {
@@ -139,6 +143,31 @@
             0,
             0,
             0.4);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--size-s);
+}
+
+.header img {
+    padding-right: var(--size-xs);
+}
+
+.header ul {
+    display: flex;
+    list-style-type: none;
+    gap: var(--size-s);
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    margin:0 auto;
+}
+
+.header ul li a {
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 html,
