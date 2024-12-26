@@ -11,14 +11,24 @@
     --size-m: 16px;
     --size-l: 24px;
     --size-xl: 48px;
-    --primary-color: #00ADB5;
-    --text-color: #222831;
-    --white-color: #EEEEEE;
-    --grey-color: #393E46;
+    --primary-color: hsl(183, 100%, 35%);
+    --text-color: #EEEEEE;
+    --black-color: #222831;
+    --grey-color: hsl(217, 10%, 25%);
+    --grey-color-5: hsl(217, 10%, 15%);
     --animation-duration: 0.2s;
     --animation-type: ease-in-out;
+    --font-size-big: 18px;
+    --font-size-standard: 14px;
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
+    font-size: var(--font-size-standard);
+    background-color: var(--grey-color-5);
+}
+
+h1 {
+    font-size: var(--font-size-big);
+    font-weight: bold;
 }
 
 .full-w-h {
@@ -190,13 +200,13 @@ input {
     border-radius: 4px;
     font-size: 16px;
     width: 200px;
-    color: var(--text-color);
-    transition: border-color var(--animation-duration) var(--animation-type);
+    color: var(--black-color);
+    transition: color var(--animation-duration) var(--animation-type);
     outline: none;
 }
 
 input:focus {
-    border-color: var(--primary-color);
+    color: var(--primary-color)
 }
 
 input::-webkit-outer-spin-button,

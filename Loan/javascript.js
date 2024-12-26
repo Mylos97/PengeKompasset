@@ -1,7 +1,7 @@
-const totalAmountInput = document.querySelector("#total-loan");
-const interestRateInput = document.querySelector("#total-interest");
-const loanYearsInput = document.querySelector("#loan-years");
-const monthlyPaymentInput = document.querySelector("#monthly-payment");
+var totalAmountInput = document.querySelector("#total-loan");
+var interestRateInput = document.querySelector("#total-interest");
+var loanYearsInput = document.querySelector("#loan-years");
+var monthlyPaymentInput = document.querySelector("#monthly-payment");
 var totalAmount = totalAmountInput.value;
 var interestRate;
 var loanYears = loanYearsInput.value;
@@ -47,12 +47,15 @@ function findInterestLabels(datasets) {
     return labels;
 }
 
-function createDatasetLoan(monthlyPayment) {
+function createDatasetLoan(monthlyPayment, index) {
+    const color = getHSLColor(index);
     const datasetLoan = {
         label: `Total betalt med månedlig betalign: ${monthlyPayment}`,
         data: [],
         tension: 0.1,
-        pointRadius: 1
+        pointRadius: 1,
+        borderColor:color, 
+        backgroundColor:color
     };
     return datasetLoan; 
 }
@@ -104,8 +107,8 @@ function calculateRentData() {
     const monthlyPayments = getMonthlyPayments();
     const datasetsLoan = [];
     const datasetsInterest = [];
-    monthlyPayments.forEach(payment => {
-        const currentDatasetLoan = createDatasetLoan(payment);
+    monthlyPayments.forEach((payment, i) => {
+        const currentDatasetLoan = createDatasetLoan(payment, i);
         const currentInterest = createDatasetInterest(payment);
         const output = calculateDataforDataset(payment, currentDatasetLoan, currentInterest);
         const loanData = output[0];
@@ -124,6 +127,12 @@ function drawLoanChart(datasets, labels) {
     const loanId = document.getElementById('loan-chart');
     const options = {
         maintainAspectRatio: false,
+        scales: {
+            y: {
+                min:0,
+                borderColor: getTextColor()
+            }
+        }
     }
 
     loanChart = new Chart(loanId, {
@@ -154,7 +163,6 @@ function drawInterestChart(datasets, labels) {
     const options = {
         maintainAspectRatio: false,
     }
-    console.log(datasets);
 
     interestChart = new Chart(interestId, {
         type: 'bar',
@@ -166,6 +174,4 @@ function drawInterestChart(datasets, labels) {
     });
 }
 
-
 interestRateChanged();
-drawCharts();

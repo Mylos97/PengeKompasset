@@ -34,14 +34,13 @@ function loadPage(page) {
             const scripts = contentArea.querySelectorAll('script');
             scripts.forEach(script => {
                 const newScript = document.createElement('script');
-                newScript.textContent = script.textContent; // Inline script content
+                newScript.textContent = script.textContent;
                 if (script.src) {
-                    // External script
                     newScript.src = script.src;
-                    newScript.async = false; // Ensure scripts execute in the correct order
+                    newScript.async = false;
                 }
                 document.body.appendChild(newScript);
-                script.remove(); // Remove the original <script> tag
+                script.remove();
             });
         })
         .catch(error => {
