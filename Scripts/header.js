@@ -3,8 +3,8 @@ class NavBar extends HTMLElement {
         this.innerHTML = `
             <nav class="header d-flex">
                 <ul>
-                    <li><a href="#" data-page="Loan/index.html">Home</a></li>
-                    <li><a href="#" data-page="Investment/index.html">About</a></li>
+                    <li><a href="#" data-page="Pages/Loan/index.html">Home</a></li>
+                    <li><a href="#" data-page="Pages/Investment/index.html">About</a></li>
                 </ul>
                 <img src="Misc/settings.svg" id="settings-icon" class="color-text-color cursor-pointer" />
             </nav>
@@ -52,5 +52,5 @@ function loadPage(page) {
 customElements.define('nav-bar', NavBar);
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadPage('Loan/index.html');
+    loadPage('Pages/Loan/index.html');
 });
