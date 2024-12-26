@@ -2,8 +2,7 @@ var rootStyles = getComputedStyle(document.documentElement);
 
 function getHSLColor(index) {
     const primaryColor = getPrimaryColor();
-    const output = decrementLight(primaryColor, index*8);
-    console.log(output)
+    const output = decrementLight(primaryColor, index*6);
     return output;
 }
 
@@ -17,7 +16,6 @@ function getTextColor() {
 
 function setChartJs() {
     const textColor = getTextColor();
-    console.log("HELLLOO", textColor)
     Chart.defaults.color = textColor;
 }
 

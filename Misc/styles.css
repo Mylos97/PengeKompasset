@@ -15,7 +15,7 @@
     --text-color: #EEEEEE;
     --black-color: #222831;
     --grey-color: hsl(217, 10%, 25%);
-    --grey-color-5: hsl(217, 10%, 15%);
+    --grey-color-18: hsl(217, 10%, 18%);
     --animation-duration: 0.2s;
     --animation-type: ease-in-out;
     --font-size-big: 18px;
@@ -23,7 +23,7 @@
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
     font-size: var(--font-size-standard);
-    background-color: var(--grey-color-5);
+    background-color: var(--grey-color-18);
 }
 
 h1 {
@@ -178,6 +178,11 @@ h1 {
 .header ul li a {
     color: var(--text-color);
     text-decoration: none;
+}
+
+.header ul li a.active {
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 html,

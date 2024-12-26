@@ -7,6 +7,7 @@ var interestRate;
 var loanYears = loanYearsInput.value;
 var monthlyPayment = monthlyPaymentInput.value;
 var interestPayment = 3;
+var months = 12 * loanYears;
 var loanChart;
 var interestChart;
 
@@ -50,18 +51,17 @@ function findInterestLabels(datasets) {
 function createDatasetLoan(monthlyPayment, index) {
     const color = getHSLColor(index);
     const datasetLoan = {
-        label: `Total betalt med månedlig betalign: ${monthlyPayment}`,
+        label: `Månedlig betaling: ${monthlyPayment}`,
         data: [],
-        tension: 0.1,
         pointRadius: 1,
-        borderColor:color, 
-        backgroundColor:color
+        borderColor: color,
+        backgroundColor: color
     };
-    return datasetLoan; 
+    return datasetLoan;
 }
 
 function createDatasetInterest(monthlyPayment) {
-    const datasetInterest = { 
+    const datasetInterest = {
         label: `Rente betalt med månedlig betalign: ${monthlyPayment}`,
         data: [],
     };
@@ -71,7 +71,7 @@ function createDatasetInterest(monthlyPayment) {
 function getMonthlyPayments() {
     const monthlyPayments = []
     var currentMonthlyPayment = parseInt(monthlyPayment);
-    for(let i = 0 ; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         monthlyPayments.push(currentMonthlyPayment);
         currentMonthlyPayment += 1000;
     }
@@ -79,8 +79,7 @@ function getMonthlyPayments() {
     return monthlyPayments;
 }
 
-function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest ) {
-    const months = 12 * loanYears;
+function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest) {
     let currentMoney = totalAmount;
     let runningInterest = 0;
 
@@ -91,9 +90,9 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest 
             runningInterest += interestMoney;
         }
         currentMoney -= inMonthlyPayment;
-        
+
         datasetLoan.data.push(currentMoney);
-        
+
         if (currentMoney <= 0) {
             break;
         }
@@ -125,12 +124,22 @@ function drawLoanChart(datasets, labels) {
         loanChart.destroy();
     }
     const loanId = document.getElementById('loan-chart');
+
     const options = {
         maintainAspectRatio: false,
         scales: {
             y: {
-                min:0,
-                borderColor: getTextColor()
+                min: 0,
+            },
+            x: {
+                ticks: {
+                    callback: function (value, index, values) {
+                        const year = Math.floor(index/12);
+                        if(year === 0) return '';
+                        if(index % 12 !== 0) return '';
+                        return `År ${year}`
+                    }
+                },
             }
         }
     }
@@ -173,5 +182,6 @@ function drawInterestChart(datasets, labels) {
         options: options
     });
 }
+
 
 interestRateChanged();

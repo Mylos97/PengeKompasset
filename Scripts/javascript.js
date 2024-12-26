@@ -160,8 +160,6 @@ function drawInterestChart(datasets, labels) {
     const options = {
         maintainAspectRatio: false,
     }
-    console.log(datasets);
-
     interestChart = new Chart(interestId, {
         type: 'bar',
         data: {

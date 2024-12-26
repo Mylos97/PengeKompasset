@@ -3,8 +3,8 @@ class NavBar extends HTMLElement {
         this.innerHTML = `
             <nav class="header d-flex">
                 <ul>
-                    <li><a href="#" data-page="Pages/Loan/index.html">Home</a></li>
-                    <li><a href="#" data-page="Pages/Investment/index.html">About</a></li>
+                    <li><a href="#" data-page="Pages/Loan/index.html">Lån</a></li>
+                    <li><a href="#" data-page="Pages/Investment/index.html">Investering</a></li>
                 </ul>
                 <img src="Misc/settings.svg" id="settings-icon" class="color-text-color cursor-pointer" />
             </nav>
@@ -15,7 +15,18 @@ class NavBar extends HTMLElement {
                 event.preventDefault();
                 const page = link.getAttribute('data-page');
                 loadPage(page);
+                this.highlightActiveLink(page);
             });
+        });
+    }
+
+    highlightActiveLink(activePage) {
+        this.querySelectorAll('a').forEach(link => {
+            if (link.getAttribute('data-page') === activePage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
     }
 }
@@ -48,9 +59,10 @@ function loadPage(page) {
         });
 }
 
-
 customElements.define('nav-bar', NavBar);
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPage('Pages/Loan/index.html');
+    const navBar = document.querySelector('nav-bar');
+    navBar.highlightActiveLink('Pages/Loan/index.html');
 });
