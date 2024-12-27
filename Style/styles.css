@@ -185,6 +185,7 @@ h1 {
 .header ul li {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .header ul li a {
