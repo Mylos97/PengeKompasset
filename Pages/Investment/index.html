@@ -1,3 +1,33 @@
-<div>
-    Hello this is page Investment
+<div class="d-flex d-align-items d-direction-column d-gap-m p-m d-flex-1 full-w-h">
+    <h1>
+        Investering
+    </h1>
+    <div class="d-flex d-gap-m d-flex-wrap d-justify-content">
+        <div class="form-group">
+            <label for="saving-each-month">
+                Opsparing hver måned
+            </label>
+            <input type="number" id="saving-each-month" name="saving-each-month" min=0 value=1000
+            onchange="savingsChanged()"/>
+        </div>
+        <div class="form-group">
+            <label for="market-raise">
+                Årlig stigning i procent
+            </label>
+            <input type="number" id="market-raise" name="market-raise" min=0 max=100 value=5
+            onchange="marketRaiseIncreased()"/>
+        </div>
+        <div class="form-group">
+            <label for="years">
+                År
+            </label>
+            <input type="number" id="years" name="years" min=0 max=30 value=10
+            onchange="yearChanged()"/>
+        </div>
+    </div>
+    <div class="d-flex d-flex-1 chart-container">
+        <canvas id="savings-chart"></canvas>
+    </div>
 </div>
+
+<script src="/Pages/Investment/javascript.js"></script>

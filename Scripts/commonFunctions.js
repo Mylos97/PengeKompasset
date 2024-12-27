@@ -1,6 +1,6 @@
 var rootStyles = getComputedStyle(document.documentElement);
 
-function getHSLColor(index) {
+function getHSLColor(index=0) {
     const primaryColor = getPrimaryColor();
     const output = decrementLight(primaryColor, index*6);
     return output;
@@ -17,6 +17,14 @@ function getTextColor() {
 function setChartJs() {
     const textColor = getTextColor();
     Chart.defaults.color = textColor;
+    Chart.defaults.plugins.legend.position = 'bottom';
+}
+
+function getYearLabel(_, index, _) {
+    const year = Math.floor(index/12);
+    if(year === 0) return '';
+    if(index % 12 !== 0) return '';
+    return `År ${year}`
 }
 
 function decrementLight(hslColor, increment) {

@@ -1,4 +1,4 @@
-<div class="d-flex d-align-items d-direction-column d-gap-xl p-m d-flex-1 full-w-h">
+<div class="d-flex d-align-items d-direction-column d-gap-m p-m d-flex-1 full-w-h">
     <h1>
         Udregn løbetiden på dit lån
     </h1>
@@ -18,13 +18,6 @@
             onchange="interestRateChanged()" />
         </div>
         <div class="form-group">
-            <label for="loan-years">
-                År tilbage af lånet
-            </label>
-            <input type="number" id="loan-years" name="loan-years" min="0" max="5 0" value="30"
-            onchange="loanYearsChanged()" />
-        </div>
-        <div class="form-group">
             <label for="monthly-payment">
                 Betaling hver måned
             </label>
@@ -35,7 +28,6 @@
     <div class="d-flex d-flex-1 chart-container">
         <canvas id="loan-chart"></canvas>
     </div>
-    
 </div>
 
 <script src="/Pages/Loan/javascript.js"></script>

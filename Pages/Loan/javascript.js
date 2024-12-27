@@ -1,13 +1,11 @@
 var totalAmountInput = document.querySelector("#total-loan");
 var interestRateInput = document.querySelector("#total-interest");
-var loanYearsInput = document.querySelector("#loan-years");
 var monthlyPaymentInput = document.querySelector("#monthly-payment");
 var totalAmount = totalAmountInput.value;
 var interestRate;
-var loanYears = loanYearsInput.value;
 var monthlyPayment = monthlyPaymentInput.value;
 var interestPayment = 3;
-var months = 12 * loanYears;
+var months = 12 * 30;
 var loanChart;
 var interestChart;
 
@@ -83,7 +81,7 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest)
     let currentMoney = totalAmount;
     let runningInterest = 0;
 
-    for (let i = 0; i < months; i++) {
+    for (let i = 0; i < months + 1; i++) {
         if (i % 3 === 0 && i !== 0) {
             const interestMoney = (currentMoney * interestRate);
             currentMoney += interestMoney;
@@ -133,13 +131,11 @@ function drawLoanChart(datasets, labels) {
             },
             x: {
                 ticks: {
-                    callback: function (value, index, values) {
-                        const year = Math.floor(index/12);
-                        if(year === 0) return '';
-                        if(index % 12 !== 0) return '';
-                        return `År ${year}`
-                    }
+                    callback: getYearLabel
                 },
+                grid: {
+                    color:'rgba(0,0,0,0.0)'
+                }
             }
         }
     }
@@ -161,7 +157,7 @@ function drawCharts() {
     const loanLabels = findLoanLabels(loanData);
     const interestLabels = findInterestLabels(interestData);
     drawLoanChart(loanData, loanLabels);
-    drawInterestChart(interestData, interestLabels);
+    //drawInterestChart(interestData, interestLabels);
 }
 
 function drawInterestChart(datasets, labels) {

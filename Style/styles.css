@@ -11,6 +11,7 @@
     --size-m: 16px;
     --size-l: 24px;
     --size-xl: 48px;
+    --size-xxl: 96px;
     --primary-color: hsl(183, 100%, 35%);
     --text-color: #EEEEEE;
     --black-color: #222831;
@@ -29,6 +30,8 @@
 h1 {
     font-size: var(--font-size-big);
     font-weight: bold;
+    margin: 0;
+    padding: 0;
 }
 
 .full-w-h {
@@ -120,6 +123,10 @@ h1 {
     border-bottom: 1px solid var(--grey-color);
 }
 
+.color-icon {
+    fill:var(--text-color)
+}
+
 .popup {
     position: fixed;
     z-index: 1;
@@ -168,21 +175,35 @@ h1 {
 .header ul {
     display: flex;
     list-style-type: none;
-    gap: var(--size-s);
+    gap: var(--size-m);
     margin: 0;
     padding: 0;
     align-items: center;
     margin:0 auto;
 }
 
+.header ul li {
+    display: flex;
+    align-items: center;
+}
+
 .header ul li a {
+    margin-left: var(--size-xs);
     color: var(--text-color);
     text-decoration: none;
 }
 
-.header ul li a.active {
+.header ul li.active > a {
     color: var(--primary-color);
     font-weight: bold;
+}
+
+.header ul li.active > svg {
+    fill: var(--primary-color);
+}
+
+svg {
+    fill: var(--text-color);
 }
 
 html,
