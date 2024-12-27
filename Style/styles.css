@@ -206,6 +206,11 @@ svg {
     fill: var(--text-color);
 }
 
+.content {
+    padding-top: var(--size-l);
+    overflow-x: hidden;
+}
+
 html,
 body {
     margin: 0;
