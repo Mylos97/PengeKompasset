@@ -32,7 +32,7 @@ function findLoanLabels(datasets) {
     const labels = [];
 
     datasets[0].data.forEach((element, i) => {
-        labels.push(`Month${i + 1}`)
+        labels.push(`Måned ${i + 1}`)
     });
     return labels;
 }
@@ -52,7 +52,8 @@ function createDatasetLoan(monthlyPayment, index) {
         data: [],
         pointRadius: 1,
         borderColor: color,
-        backgroundColor: color
+        backgroundColor: color,
+        pointStyle: false
     };
     return datasetLoan;
 }
@@ -79,16 +80,27 @@ function getMonthlyPayments() {
 function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
     let currentMoney = totalAmount;
     let runningInterest = 0;
+    let yearInterest = 0;
+    let interestData = [];
 
     for (let i = 0; i < months + 1; i++) {
         if (i % 3 === 0 && i !== 0) {
             const interestMoney = (currentMoney * interestRate);
             currentMoney += interestMoney;
             runningInterest += interestMoney;
+            yearInterest += interestMoney;
         }
+
+        if (i % 12 === 0 && i !== 0) {
+            interestData.push(Math.floor(yearInterest));
+            yearInterest = 0;
+        } else {
+            interestData.push(0);
+        }
+
         currentMoney -= inMonthlyPayment;
 
-        datasetLoan.data.push(currentMoney);
+        datasetLoan.data.push(Math.floor(currentMoney));
 
         if (currentMoney <= 0) {
             break;

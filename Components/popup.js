@@ -7,7 +7,6 @@ settingsIcon.addEventListener("click", () => {
 });
 
 popup.addEventListener("click", (e) => {
-    console.log("popup cliked")
     e.stopPropagation();
     popup.classList.toggle("popup-show");
 });

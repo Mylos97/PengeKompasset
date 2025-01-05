@@ -64,17 +64,17 @@ function calculateData() {
     const dataset = {
         label: `Opsparing`,
         data: [],
-        pointRadius: 1,
         borderColor: color,
-        backgroundColor: color
+        backgroundColor: color,
+        pointStyle: false
     };
 
     const datasetUden = {
         label: `Opsparing uden investering`,
         data: [],
-        pointRadius: 1,
         borderColor: color2,
-        backgroundColor: color2
+        backgroundColor: color2,
+        pointStyle: false
     };
 
     var current = parseInt(savings);
@@ -92,7 +92,7 @@ function calculateData() {
         }
         currentNoGrowth += parseInt(savings);
         current += parseInt(savings);
-        labels.push(i);
+        labels.push(`Måned ${i}`);
     }
     
 
