@@ -7,8 +7,7 @@
             <label for="total-loan">
                 Antal af penge lånt
             </label>
-            <input type="number" id="total-loan" name="total-loan" min="0" value="1000000"
-            onchange="totalLoanAmountChanged()" />
+            <input-dots value="1000000" onchange="totalLoanAmountChanged(event)"></input-dots>
         </div>
         <div class="form-group">
             <label for="total-interest">
@@ -25,7 +24,12 @@
             onchange="monthlyPaymentChanged()" />
         </div>
     </div>
-    <div class="d-flex d-flex-1 chart-container">
+    <div id="loan-list" class="list-table">
+        <ul>
+
+        </ul>
+    </div>
+    <div class="chart-container" style="height: 60%;">
         <canvas id="loan-chart"></canvas>
     </div>
 </div>

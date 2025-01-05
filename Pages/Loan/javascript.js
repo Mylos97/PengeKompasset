@@ -1,7 +1,6 @@
-var totalAmountInput = document.querySelector("#total-loan");
 var interestRateInput = document.querySelector("#total-interest");
 var monthlyPaymentInput = document.querySelector("#monthly-payment");
-var totalAmount = totalAmountInput.value;
+var totalAmount = 1000000;
 var interestRate;
 var monthlyPayment = monthlyPaymentInput.value;
 var interestPayment = 3;
@@ -9,8 +8,8 @@ var months = 12 * 30;
 var loanChart;
 var interestChart;
 
-function totalLoanAmountChanged() {
-    totalAmount = totalAmountInput.value;
+function totalLoanAmountChanged(e) {
+    totalAmount = parseInt(e.detail.value)
     drawCharts();
 }
 
@@ -77,7 +76,7 @@ function getMonthlyPayments() {
     return monthlyPayments;
 }
 
-function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest) {
+function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
     let currentMoney = totalAmount;
     let runningInterest = 0;
 
@@ -96,8 +95,7 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan, datasetInterest)
         }
     }
 
-    datasetInterest.data.push(Math.floor(runningInterest));
-    return [datasetLoan, datasetInterest];
+    return [datasetLoan, Math.floor(runningInterest)];
 }
 
 function calculateRentData() {
@@ -111,7 +109,7 @@ function calculateRentData() {
         const loanData = output[0];
         const interestData = output[1];
         datasetsLoan.push(loanData);
-        datasetsInterest.push(interestData);
+        datasetsInterest.push({payment: payment,cost: interestData});
     });
     const output = [datasetsLoan, datasetsInterest];
     return output;
@@ -152,32 +150,35 @@ function drawLoanChart(datasets, labels) {
 
 function drawCharts() {
     const datasets = calculateRentData();
-    const loanData = datasets[0]
-    const interestData = datasets[1];
+    const loanData = datasets[0];
     const loanLabels = findLoanLabels(loanData);
-    const interestLabels = findInterestLabels(interestData);
+    const interestData = datasets[1];
+    console.log(interestData);
     drawLoanChart(loanData, loanLabels);
-    //drawInterestChart(interestData, interestLabels);
+    makeInterestList(interestData);
 }
 
-function drawInterestChart(datasets, labels) {
-    if (interestChart) {
-        interestChart.destroy();
-    }
-    const interestId = document.getElementById('interest-chart');
-    const options = {
-        maintainAspectRatio: false,
-    }
+function makeInterestList(interestData) {
+    const list = document.querySelector("#loan-list").querySelector("ul");
+    list.innerHTML = '';
 
-    interestChart = new Chart(interestId, {
-        type: 'bar',
-        data: {
-            labels: ["betaling"],
-            datasets: datasets,
-        },
-        options: options
+    interestData.forEach(data => {
+        const li = document.createElement("li");
+        const p = document.createElement("p");
+        const payment = document.createElement("strong");
+        const cost = document.createElement("strong");
+        payment.innerHTML = `${data.payment} kr.`;
+        cost.innerHTML = `${data.cost} kr.`;
+
+        p.appendChild(document.createTextNode("Månedlig betaling med "))
+        p.appendChild(payment)
+        p.appendChild(document.createTextNode(" ender med at koste "));
+        p.appendChild(cost);
+        p.appendChild(document.createTextNode(" i renter"));
+        li.appendChild(p);
+    
+        list.appendChild(li);
     });
+    
 }
-
-
 interestRateChanged();

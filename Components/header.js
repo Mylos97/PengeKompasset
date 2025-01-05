@@ -72,7 +72,7 @@ function loadPage(page) {
 customElements.define('nav-bar', NavBar);
 
 document.addEventListener('DOMContentLoaded', () => {
-    const firstPage = 'Pages/Investment/index.html';
+    const firstPage = 'Pages/Loan/index.html';
     loadPage(firstPage);
     const navBar = document.querySelector('nav-bar');
     navBar.highlightActiveLink(firstPage);

@@ -18,6 +18,9 @@ function setChartJs() {
     const textColor = getTextColor();
     Chart.defaults.color = textColor;
     Chart.defaults.plugins.legend.position = 'bottom';
+    Chart.defaults.plugins.legend.onClick = undefined;
+    Chart.defaults.plugins.legend.labels.boxWidth = 4;
+    Chart.defaults.plugins.legend.labels.boxHeight = 1;
 }
 
 function getYearLabel(_, index, _) {

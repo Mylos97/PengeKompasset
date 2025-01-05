@@ -59,10 +59,10 @@ function drawChart() {
 
 function calculateData() {
     const color = getHSLColor();
-    const color2 = getHSLColor(1);
+    const color2 = getHSLColor(2);
     const labels = [];
     const dataset = {
-        label: `Penge`,
+        label: `Opsparing`,
         data: [],
         pointRadius: 1,
         borderColor: color,
@@ -70,7 +70,7 @@ function calculateData() {
     };
 
     const datasetUden = {
-        label: `Penge uden investering`,
+        label: `Opsparing uden investering`,
         data: [],
         pointRadius: 1,
         borderColor: color2,
