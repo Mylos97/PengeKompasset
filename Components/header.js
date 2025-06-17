@@ -1,4 +1,10 @@
 class NavBar extends HTMLElement {
+    constructor() {
+        super();
+        const repoName = location.pathname.split('/')[1];
+        this.basePath = '/' + repoName + '/';
+    }
+    
     connectedCallback() {
         this.innerHTML = `
             <nav class="header d-flex">
@@ -56,10 +62,18 @@ function loadPage(page) {
             scripts.forEach(script => {
                 const newScript = document.createElement('script');
                 newScript.textContent = script.textContent;
-                if (script.src) {
-                    newScript.src = script.src;
-                    newScript.async = false;
+                const rawSrc = script.getAttribute('src');
+                
+                if (!rawSrc) return;
+                
+                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(basePath)) {
+                    newScript.src = basePath + rawSrc;
+                } else {
+                    newScript.src = rawSrc;
                 }
+                newScript.async = false;
+
+                
                 document.body.appendChild(newScript);
                 script.remove();
             });
