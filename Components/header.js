@@ -66,8 +66,8 @@ function loadPage(page) {
                 
                 if (!rawSrc) return;
                 
-                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(basePath)) {
-                    newScript.src = basePath + rawSrc;
+                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(this.basePath)) {
+                    newScript.src = this.basePath + rawSrc;
                 } else {
                     newScript.src = rawSrc;
                 }
