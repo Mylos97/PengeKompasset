@@ -1,10 +1,7 @@
+const repoName = location.pathname.split('/')[1];
+const basePath = '/' + repoName + '/';
+
 class NavBar extends HTMLElement {
-    constructor() {
-        super();
-        const repoName = location.pathname.split('/')[1];
-        this.basePath = '/' + repoName + '/';
-    }
-    
     connectedCallback() {
         this.innerHTML = `
             <nav class="header d-flex">
@@ -47,6 +44,8 @@ class NavBar extends HTMLElement {
     }
 }
 
+
+
 function loadPage(page) {
     const contentArea = document.getElementById('content');
     fetch(page)
@@ -66,8 +65,8 @@ function loadPage(page) {
                 
                 if (!rawSrc) return;
                 
-                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(this.basePath)) {
-                    newScript.src = this.basePath + rawSrc;
+                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(basePath)) {
+                    newScript.src = basePath + rawSrc;
                 } else {
                     newScript.src = rawSrc;
                 }
