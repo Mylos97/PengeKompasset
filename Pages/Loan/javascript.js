@@ -69,7 +69,7 @@ function createDatasetInterest(monthlyPayment) {
 function getMonthlyPayments() {
     const monthlyPayments = []
     var currentMonthlyPayment = parseInt(monthlyPayment);
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
         monthlyPayments.push(currentMonthlyPayment);
         currentMonthlyPayment += 1000;
     }
