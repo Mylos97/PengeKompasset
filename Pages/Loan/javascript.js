@@ -31,7 +31,7 @@ function monthlyPaymentChanged() {
 function findLoanLabels(datasets) {
     const labels = [];
 
-    datasets[0].data.forEach((element, i) => {
+    datasets[0].data.forEach((_, i) => {
         labels.push(`Måned ${i + 1}`)
     });
     return labels;
@@ -82,6 +82,7 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
     let runningInterest = 0;
     let quarterInterest = 0;
     let interestForCalculation = (interestRate * 0.01)/12
+    let months = 1;
 
     for (let i = 0; i < months; i++) {
         currentMoney -= inMonthlyPayment;
@@ -98,9 +99,10 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
         if (currentMoney <= 0) {
             break;
         }
+        months++;
     }
 
-    return [datasetLoan, Math.floor(runningInterest)];
+    return [datasetLoan, Math.floor(runningInterest), months];
 }
 
 function calculateRentData() {
@@ -110,11 +112,9 @@ function calculateRentData() {
     monthlyPayments.forEach((payment, i) => {
         const currentDatasetLoan = createDatasetLoan(payment, i);
         const currentInterest = createDatasetInterest(payment);
-        const output = calculateDataforDataset(payment, currentDatasetLoan, currentInterest);
-        const loanData = output[0];
-        const interestData = output[1];
+        const [loanData, cost, months] = calculateDataforDataset(payment, currentDatasetLoan, currentInterest);
         datasetsLoan.push(loanData);
-        datasetsInterest.push({payment: payment,cost: interestData});
+        datasetsInterest.push({ payment, cost, months});
     });
     const output = [datasetsLoan, datasetsInterest];
     return output;
@@ -164,23 +164,13 @@ function drawCharts() {
 
 function makeInterestList(interestData) {
     const list = document.querySelector("#loan-list").querySelector("ul");
-    list.innerHTML = '';
-
+    list.innerHTML = "";
     interestData.forEach(data => {
         const li = document.createElement("li");
         const p = document.createElement("p");
-        const payment = document.createElement("strong");
-        const cost = document.createElement("strong");
-        payment.innerHTML = `${data.payment} kr.`;
-        cost.innerHTML = `${data.cost} kr.`;
-
-        p.appendChild(document.createTextNode("Månedlig betaling med "))
-        p.appendChild(payment)
-        p.appendChild(document.createTextNode(" ender med at koste "));
-        p.appendChild(cost);
-        p.appendChild(document.createTextNode(" i renter"));
+        const text = `Månedlig betaling med ${data.payment} kr. ender med at koste ${data.cost} i renter  og det tager ${data.months} måneder at betale tilbage`
+        p.appendChild(document.createTextNode(text));
         li.appendChild(p);
-    
         list.appendChild(li);
     });
     
