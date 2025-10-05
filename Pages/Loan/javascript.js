@@ -1,7 +1,7 @@
 var interestRateInput = document.querySelector("#total-interest");
 var monthlyPaymentInput = document.querySelector("#monthly-payment");
-var totalAmount = 1000000;
-var interestRate;
+var totalAmount = document.querySelector("#total-loaned").getAttribute('value');
+var interestRate = interestRateInput.value;
 var monthlyPayment = monthlyPaymentInput.value;
 var interestPayment = 3;
 var months = 12 * 30;
@@ -14,7 +14,7 @@ function totalLoanAmountChanged(e) {
 }
 
 function interestRateChanged() {
-    interestRate = (interestRateInput.value * 0.01) / 4;
+    interestRate = (interestRateInput.value);
     drawCharts();
 }
 
@@ -69,7 +69,7 @@ function createDatasetInterest(monthlyPayment) {
 function getMonthlyPayments() {
     const monthlyPayments = []
     var currentMonthlyPayment = parseInt(monthlyPayment);
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
         monthlyPayments.push(currentMonthlyPayment);
         currentMonthlyPayment += 1000;
     }
@@ -80,27 +80,20 @@ function getMonthlyPayments() {
 function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
     let currentMoney = totalAmount;
     let runningInterest = 0;
-    let yearInterest = 0;
-    let interestData = [];
+    let quarterInterest = 0;
+    let interestForCalculation = (interestRate * 0.01)/12
 
-    for (let i = 0; i < months + 1; i++) {
-        if (i % 3 === 0 && i !== 0) {
-            const interestMoney = (currentMoney * interestRate);
-            currentMoney += interestMoney;
-            runningInterest += interestMoney;
-            yearInterest += interestMoney;
-        }
-
-        if (i % 12 === 0 && i !== 0) {
-            interestData.push(Math.floor(yearInterest));
-            yearInterest = 0;
-        } else {
-            interestData.push(0);
-        }
-
+    for (let i = 0; i < months; i++) {
         currentMoney -= inMonthlyPayment;
 
-        datasetLoan.data.push(Math.floor(currentMoney));
+        quarterInterest += Math.round(currentMoney * interestForCalculation)
+        if (i % 3 === 0) {
+            currentMoney += quarterInterest;
+            runningInterest += quarterInterest;
+            quarterInterest = 0
+        }
+        
+        datasetLoan.data.push(Math.ceil(currentMoney));
 
         if (currentMoney <= 0) {
             break;
@@ -165,7 +158,6 @@ function drawCharts() {
     const loanData = datasets[0];
     const loanLabels = findLoanLabels(loanData);
     const interestData = datasets[1];
-    console.log(interestData);
     drawLoanChart(loanData, loanLabels);
     makeInterestList(interestData);
 }

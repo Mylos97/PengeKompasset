@@ -1,5 +1,7 @@
 const repoName = location.pathname.split('/')[1];
 const basePath = '/' + repoName + '/';
+const ACTIVE = 'active';
+const DATA_PAGE = 'data-page';
 
 class NavBar extends HTMLElement {
     connectedCallback() {
@@ -26,7 +28,9 @@ class NavBar extends HTMLElement {
         this.querySelectorAll('li').forEach(link => {
             link.addEventListener('click', (event) => {
                 event.preventDefault();
-                const page = link.getAttribute('data-page');
+                const page = link.getAttribute(DATA_PAGE);
+                if (link.classList.contains(ACTIVE)) return;
+
                 loadPage(page);
                 this.highlightActiveLink(page);
             });
@@ -35,16 +39,14 @@ class NavBar extends HTMLElement {
 
     highlightActiveLink(activePage) {
         this.querySelectorAll('li').forEach(link => {
-            if (link.getAttribute('data-page') === activePage) {
-                link.classList.add('active');
+            if (link.getAttribute(DATA_PAGE) === activePage) {
+                link.classList.add(ACTIVE);
             } else {
-                link.classList.remove('active');
+                link.classList.remove(ACTIVE);
             }
         });
     }
 }
-
-
 
 function loadPage(page) {
     const contentArea = document.getElementById('content');
@@ -61,18 +63,7 @@ function loadPage(page) {
             scripts.forEach(script => {
                 const newScript = document.createElement('script');
                 newScript.textContent = script.textContent;
-                const rawSrc = script.getAttribute('src');
-                
-                if (!rawSrc) return;
-                
-                if (!rawSrc.startsWith('http') && !rawSrc.startsWith(basePath)) {
-                    newScript.src = basePath + rawSrc;
-                } else {
-                    newScript.src = rawSrc;
-                }
-                newScript.async = false;
-
-                
+                newScript.src = script.src
                 document.body.appendChild(newScript);
                 script.remove();
             });
@@ -85,7 +76,7 @@ function loadPage(page) {
 customElements.define('nav-bar', NavBar);
 
 document.addEventListener('DOMContentLoaded', () => {
-    const firstPage = 'Pages/Loan/index.html';
+    const firstPage = './Pages/Loan/index.html';
     loadPage(firstPage);
     const navBar = document.querySelector('nav-bar');
     navBar.highlightActiveLink(firstPage);
