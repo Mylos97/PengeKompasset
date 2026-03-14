@@ -128,9 +128,6 @@ function drawLoanChart(datasets, labels) {
         loanChart.destroy();
     }
     const loanId = document.getElementById('loan-chart');
-    const options = {
-        maintainAspectRatio: false,
-    }
 
     loanChart = new Chart(loanId, {
         type: 'line',

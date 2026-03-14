@@ -12,11 +12,13 @@
     --size-l: 1.5rem;    
     --size-xl: 3rem;     
     --size-xxl: 6rem;        
-    --primary-color: hsl(183, 100%, 35%);
+    --primary-color: hsl(183, 100%, 42%);
     --text-color: #EEEEEE;
     --black-color: #222831;
-    --grey-color: hsl(217, 10%, 25%);
-    --background-color: hsl(217, 10%, 16%);
+    --grey-color: hsl(217, 10%, 22%);
+    --background-color: hsl(217, 10%, 25%);
+    --background-chart-color: hsl(217, 10%, 24%);
+    --header-color: hsl(217, 10%, 21%);
     --animation-duration: 0.25s;
     --animation-type: ease-in-out;
     --font-size-big: 18px;
@@ -26,6 +28,7 @@
     font-size: var(--font-size-standard);
     background-color: var(--background-color);
 }
+
 
 h1 {
     font-size: var(--font-size-big);
@@ -120,7 +123,7 @@ h1 {
 }
 
 .header {
-    border-bottom: 1px solid var(--grey-color);
+    background: var(--header-color);
 }
 
 .color-icon {

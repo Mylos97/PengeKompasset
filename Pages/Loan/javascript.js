@@ -55,6 +55,7 @@ function createDatasetLoan(monthlyPayment, index) {
         backgroundColor: color,
         pointStyle: false
     };
+
     return datasetLoan;
 }
 
@@ -63,6 +64,7 @@ function createDatasetInterest(monthlyPayment) {
         label: `Rente betalt med månedlig betalign: ${monthlyPayment}`,
         data: [],
     };
+
     return datasetInterest;
 }
 
@@ -81,7 +83,7 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
     let currentMoney = totalAmount;
     let runningInterest = 0;
     let quarterInterest = 0;
-    let interestForCalculation = (interestRate * 0.01)/12
+    let interestForCalculation = (interestRate * 0.01) / 12
     let months = 1;
 
     for (let i = 0; i < months; i++) {
@@ -93,12 +95,13 @@ function calculateDataforDataset(inMonthlyPayment, datasetLoan) {
             runningInterest += quarterInterest;
             quarterInterest = 0
         }
-        
+
         datasetLoan.data.push(Math.ceil(currentMoney));
 
         if (currentMoney <= 0) {
             break;
         }
+
         months++;
     }
 
@@ -114,9 +117,10 @@ function calculateRentData() {
         const currentInterest = createDatasetInterest(payment);
         const [loanData, cost, months] = calculateDataforDataset(payment, currentDatasetLoan, currentInterest);
         datasetsLoan.push(loanData);
-        datasetsInterest.push({ payment, cost, months});
+        datasetsInterest.push({ payment, cost, months });
     });
     const output = [datasetsLoan, datasetsInterest];
+
     return output;
 }
 
@@ -134,10 +138,10 @@ function drawLoanChart(datasets, labels) {
             },
             x: {
                 ticks: {
-                    callback: getYearLabel
+                    callback: getYearLabel,
                 },
                 grid: {
-                    color:'rgba(0,0,0,0.0)'
+                    color: 'rgba(0,0,0,0.0)'
                 }
             }
         }
@@ -168,11 +172,11 @@ function makeInterestList(interestData) {
     interestData.forEach(data => {
         const li = document.createElement("li");
         const p = document.createElement("p");
-        const text = `Månedlig betaling med ${data.payment} kr. ender med at koste ${data.cost} i renter  og det tager ${data.months} måneder at betale tilbage`
+        const text = `Månedlig betaling ${data.payment} kr. ender med at koste ${data.cost} kr. i renter og det tager ${data.months} måneder`
         p.appendChild(document.createTextNode(text));
         li.appendChild(p);
         list.appendChild(li);
     });
-    
+
 }
 interestRateChanged();
